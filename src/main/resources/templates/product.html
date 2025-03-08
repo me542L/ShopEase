@@ -4,9 +4,12 @@
   <title>Product Details</title>
 </head>
 <body>
-<h1 th:text="${product.name}">Product Name</h1>
-<p th:text="${product.description}">Product Description</p>
-<p th:text="'$' + ${product.price}">Product Price</p>
-<a th:href="@{/add-to-cart/{id}(id=${product.id})}">Add to Cart</a>
+<h1>Product Details</h1>
+<div>
+  <h2 th:text="${product.name}">Product Name</h2>
+  <p th:text="${product.description}">Product Description</p>
+  <p th:text="${product.price}">Product Price</p>
+  <a th:href="@{/add-to-cart/{id}(id=${product.id})}">Add to Cart</a>
+</div>
 </body>
 </html>
