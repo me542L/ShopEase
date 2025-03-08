@@ -1,11 +1,10 @@
 package com.example.Shopping_Platform.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 
 @Entity
+@Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,6 +12,7 @@ public class Product {
     private String name;
     private String description;
     private double price;
+    private String imageUrl;
     public String getName() {
         return name;
     }
@@ -43,5 +43,13 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getImageUrl() { // Add this method
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) { // Add this method
+        this.imageUrl = imageUrl;
     }
 }
