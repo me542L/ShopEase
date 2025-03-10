@@ -13,6 +13,16 @@ public class Product {
     private String description;
     private double price;
     private String imageUrl;
+
+    public String getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(String ratings) {
+        this.ratings = ratings;
+    }
+
+    private String ratings;
     public String getName() {
         return name;
     }
