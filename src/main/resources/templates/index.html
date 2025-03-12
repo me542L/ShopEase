@@ -330,20 +330,24 @@ header {
         <span th:text="'$' + ${product.price}" class="price">Product Price</span>
         <img th:src="${product.imageUrl}" alt="Product Image"/>
         <div class="product-quantity-container">
-            <select>
-                <option selected value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-            </select>
+            <form th:action="@{/add-to-cart}" method="post">
+                <input type="hidden" name="productId" th:value="${product.id}">
+                <label for="quantity">Quantity:</label>
+                <select name="quantity" id="quantity">
+                    <option selected value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+                <button type="submit" class="addToCart-button">Add to Cart</button>
+            </form>
         </div>
-        <button class="addToCart-button"><a th:href="@{/add-to-cart/{id}(id=${product.id})}">Add to Cart</a></button>
         <button class="buyNow-button"><a th:href="@{/buy-now/{id}(id=${product.id})}">Buy Now</a></button>
     </li>
 </ul>

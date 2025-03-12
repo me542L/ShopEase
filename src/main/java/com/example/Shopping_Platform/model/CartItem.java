@@ -15,6 +15,10 @@ public class CartItem {
 
     private int quantity;
 
+    public CartItem() {
+    }
+
+
 
     public CartItem(Product product, int i) {
         this.product=product;

@@ -61,7 +61,7 @@ public class ShopController {
     @PostMapping("/add-to-cart")
     public String addToCart(@RequestParam("productId") Long productId, @RequestParam("quantity") int quantity) {
         productService.addToCart(productId, quantity);
-        return "redirect:/checkout";
+        return "redirect:/cart"; // Redirect to the cart page
     }
 
     @GetMapping("/buy-now/{id}")
