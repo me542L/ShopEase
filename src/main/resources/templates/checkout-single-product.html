@@ -70,7 +70,8 @@
 </header>
 <div class="container">
   <div class="checkout">
-    <form th:action="@{/place-order}" method="post">
+    <form th:action="@{/place-order-single-product}" method="post">
+      <input type="hidden" name="productId" th:value="${product.id}">
       <div class="form-group">
         <label for="address">Delivery Address</label>
         <input type="text" id="address" name="address" required>
@@ -89,7 +90,7 @@
         <label for="mobile">Mobile Number</label>
         <input type="text" id="mobile" name="mobile" required>
       </div>
-      <p th:text="'Total Payable Amount: $' + ${totalAmount}" class="total-price"></p>
+      <p th:text="'Total Payable Amount: $' + ${product.price}" class="total-price"></p>
       <div class="checkout-button">
         <button type="submit">Place Order</button>
       </div>

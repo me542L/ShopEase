@@ -7,7 +7,5 @@ public class BCryptPasswordGenerator {
         String rawPassword = "shubhi"; // Replace with your desired password
         String encodedPassword = encoder.encode(rawPassword);
         System.out.println(encodedPassword);
-
-
     }
 }

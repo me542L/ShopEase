@@ -76,7 +76,7 @@
     <p id="product-description" th:text="${product.description}">Product Description</p>
   </div>
   <p th:text="'Total Payable Amount: $' + ${product.price}" class="total-price"></p>
-  <a th:href="@{/checkout}" class="checkout-button">Checkout</a>
+  <a th:href="@{/checkout-single-product(id=${product.id})}" class="checkout-button">Checkout</a>
 </div>
 </body>
 </html>

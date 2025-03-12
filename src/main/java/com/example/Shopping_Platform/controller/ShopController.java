@@ -45,15 +45,6 @@ public class ShopController {
         return "search"; // Make sure search.html exists!
     }
 
-
-    /*@GetMapping("/add-to-cart/{id}")
-    public String addToCart(@PathVariable Long id) {
-        Product product = productService.getProductById(id);
-        if (product != null) {
-            cart.add(new CartItem(product, 1));
-        }
-        return "redirect:/cart";
-    }*/
     @PostMapping("/add-to-cart")
     public String addToCart(@RequestParam("productId") Long productId, @RequestParam("quantity") int quantity) {
         productService.addToCart(productId, quantity);
@@ -100,9 +91,11 @@ public class ShopController {
                              @RequestParam("payment") String payment,
                              @RequestParam("mobile") String mobile,
                              Model model) {
-        // Handle order placement logic here
-        // For now, we will just display the order details
+        List<CartItem> cartItems = productService.getCartItems();
+        double totalAmount = productService.getTotalAmount();
 
+        model.addAttribute("cartItems", cartItems);
+        model.addAttribute("totalAmount", totalAmount);
         model.addAttribute("address", address);
         model.addAttribute("payment", payment);
         model.addAttribute("mobile", mobile);
@@ -111,7 +104,33 @@ public class ShopController {
     @PostMapping("/remove-from-cart")
     public String removeFromCart(@RequestParam("cartItemId") Long cartItemId) {
         productService.removeFromCart(cartItemId);
-        return "redirect:/cart"; // Redirect to the cart page
+        return "redirect:/cart";
     }
+    @GetMapping("/checkout-single-product")
+    public String checkoutSingleProduct(@RequestParam("id") Long id, Model model) {
+        Product product = productService.getProductById(id);
+        if (product == null) {
+            return "error/404";
+        }
+        model.addAttribute("product", product);
+        return "checkout-single-product";
+    }
+    @PostMapping("/place-order-single-product")
+    public String placeOrderSingleProduct(@RequestParam("productId") Long productId,
+                                          @RequestParam("address") String address,
+                                          @RequestParam("payment") String payment,
+                                          @RequestParam("mobile") String mobile,
+                                          Model model) {
+        Product product = productService.getProductById(productId);
+        if (product == null) {
+            return "error/404";
+        }
+        model.addAttribute("product", product);
+        model.addAttribute("address", address);
+        model.addAttribute("payment", payment);
+        model.addAttribute("mobile", mobile);
+        model.addAttribute("totalAmount", product.getPrice());
+        return "order-confirmation-single-product";
 
+}
 }
