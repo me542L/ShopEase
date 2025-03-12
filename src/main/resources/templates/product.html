@@ -36,7 +36,12 @@
     .product-details p {
         margin-bottom: 10px;
     }
-    .submit-button {
+    .button-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+    .submit-button, .buyNow-button {
         background-color: rgb(255, 216, 20);
         border: 1px solid rgb(252, 210, 0);
         color: black;
@@ -44,10 +49,11 @@
         padding: 10px 20px;
         border-radius: 5px;
         cursor: pointer;
-        margin-top: 20px;
         transition: background-color 0.3s ease;
+        text-decoration: none;
+        text-align: center;
     }
-    .submit-button:hover {
+    .submit-button:hover, .buyNow-button:hover {
         background-color: rgb(255, 200, 0);
     }
   </style>
@@ -71,7 +77,10 @@
       <input type="hidden" name="productId" th:value="${product.id}">
       <label for="quantity">Quantity:</label>
       <input type="number" name="quantity" id="quantity" value="1" min="1" required>
-      <button type="submit" class="submit-button">Add to Cart</button>
+      <div class="button-container">
+        <button type="submit" class="submit-button">Add to Cart</button>
+        <a th:href="@{/buy-now/{id}(id=${product.id})}" class="buyNow-button">Buy Now</a>
+      </div>
     </form>
   </div>
 </div>
