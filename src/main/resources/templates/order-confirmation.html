@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Order Confirmation</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        width: 80%;
+        margin: auto;
+        overflow: hidden;
+    }
+    header {
+        background: peru;
+        color: white;
+        padding: 10px 0;
+        text-align: center;
+    }
+    header h1 {
+        margin: 0;
+        font-size: 24px;
+    }
+    .order-confirmation {
+        background: white;
+        padding: 20px;
+        margin-top: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Order Confirmation</h1>
+</header>
+<div class="container">
+  <div class="order-confirmation">
+    <h2>Thank you for your order!</h2>
+    <p>Delivery Address: <span th:text="${address}">123 Main St</span></p>
+    <p>Payment Method: <span th:text="${payment}">Credit Card</span></p>
+    <p>Mobile Number: <span th:text="${mobile}">123-456-7890</span></p>
+  </div>
+</div>
+</body>
+</html>

@@ -39,5 +39,8 @@ public class ProductService {
         CartItem cartItem = new CartItem(product, quantity);
         cartItemRepository.save(cartItem);
     }
+    public void removeFromCart(Long cartItemId) {
+        cartItemRepository.deleteById(cartItemId);
+    }
 
 }

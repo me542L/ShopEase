@@ -44,11 +44,7 @@ public class ShopController {
         model.addAttribute("products", products);
         return "search"; // Make sure search.html exists!
     }
-    @GetMapping("/cart")
-    public String viewCart(Model model) {
-        model.addAttribute("cartItems", cart);
-        return "cart";
-    }
+
 
     /*@GetMapping("/add-to-cart/{id}")
     public String addToCart(@PathVariable Long id) {
@@ -73,7 +69,6 @@ public class ShopController {
 
     @GetMapping("/checkout")
     public String checkout(Model model) {
-        // Assuming you have a method to get the cart items and the total amount
         List<CartItem> cartItems = productService.getCartItems();
         double totalAmount = productService.getTotalAmount();
 
@@ -81,4 +76,42 @@ public class ShopController {
         model.addAttribute("totalAmount", totalAmount);
         return "checkout";
     }
+
+    @GetMapping("/cart")
+    public String cart(Model model) {
+        List<CartItem> cartItems = productService.getCartItems();
+        double totalAmount = productService.getTotalAmount();
+
+        // Debug statements to check data
+        cartItems.forEach(cartItem -> {
+            System.out.println("Product ID: " + cartItem.getProduct().getId());
+            System.out.println("Product Name: " + cartItem.getProduct().getName());
+            System.out.println("Product Price: " + cartItem.getProduct().getPrice());
+            System.out.println("Quantity: " + cartItem.getQuantity());
+        });
+        System.out.println("Total Amount: " + totalAmount);
+
+        model.addAttribute("cartItems", cartItems);
+        model.addAttribute("totalAmount", totalAmount);
+        return "cart";
+    }
+    @PostMapping("/place-order")
+    public String placeOrder(@RequestParam("address") String address,
+                             @RequestParam("payment") String payment,
+                             @RequestParam("mobile") String mobile,
+                             Model model) {
+        // Handle order placement logic here
+        // For now, we will just display the order details
+
+        model.addAttribute("address", address);
+        model.addAttribute("payment", payment);
+        model.addAttribute("mobile", mobile);
+        return "order-confirmation";
+    }
+    @PostMapping("/remove-from-cart")
+    public String removeFromCart(@RequestParam("cartItemId") Long cartItemId) {
+        productService.removeFromCart(cartItemId);
+        return "redirect:/cart"; // Redirect to the cart page
+    }
+
 }
