@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Checkout</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+    }
+    .checkout-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background: white;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .cart-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+    .total-amount {
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 20px;
+        text-align: right;
+    }
+    .submit-button {
+        background-color: rgb(255, 216, 20);
+        border: 1px solid rgb(252, 210, 0);
+        color: black;
+        font-size: bold;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: background-color 0.3s ease;
+        text-align: right;
+    }
+    .submit-button:hover {
+        background-color: rgb(255, 200, 0);
+    }
+  </style>
+</head>
+<body>
+<div class="checkout-container">
+  <h1>Checkout</h1>
+  <div th:each="cartItem : ${cartItems}" class="cart-item">
+    <span th:text="${cartItem.product.name}">Product Name</span>
+    <span th:text="${cartItem.quantity}">Quantity</span>
+    <span th:text="${'$' + cartItem.product.price}">Price</span>
+  </div>
+  <div class="total-amount" th:text="'Total: $' + ${totalAmount}">Total: $0.00</div>
+  <div class="submit-button">Place Order</div>
+</div>
+</body>
+</html>

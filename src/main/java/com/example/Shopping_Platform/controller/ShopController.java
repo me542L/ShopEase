@@ -7,10 +7,7 @@ import com.example.Shopping_Platform.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,12 +50,35 @@ public class ShopController {
         return "cart";
     }
 
-    @GetMapping("/add-to-cart/{id}")
+    /*@GetMapping("/add-to-cart/{id}")
     public String addToCart(@PathVariable Long id) {
         Product product = productService.getProductById(id);
         if (product != null) {
             cart.add(new CartItem(product, 1));
         }
         return "redirect:/cart";
+    }*/
+    @PostMapping("/add-to-cart")
+    public String addToCart(@RequestParam("productId") Long productId, @RequestParam("quantity") int quantity) {
+        productService.addToCart(productId, quantity);
+        return "redirect:/checkout";
+    }
+
+    @GetMapping("/buy-now/{id}")
+    public String buyNow(@PathVariable("id") Long id, Model model) {
+        Product product = productService.getProductById(id);
+        model.addAttribute("product", product);
+        return "buy-now";
+    }
+
+    @GetMapping("/checkout")
+    public String checkout(Model model) {
+        // Assuming you have a method to get the cart items and the total amount
+        List<CartItem> cartItems = productService.getCartItems();
+        double totalAmount = productService.getTotalAmount();
+
+        model.addAttribute("cartItems", cartItems);
+        model.addAttribute("totalAmount", totalAmount);
+        return "checkout";
     }
 }

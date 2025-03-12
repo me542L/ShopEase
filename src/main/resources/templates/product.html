@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Product Details</title>
@@ -56,6 +56,74 @@
 
   <img th:src="${product.imageUrl}" alt="Product Image"/>
   <button class="addToCart-button"><a th:href="@{/add-to-cart/{id}(id=${product.id})}">Add to Cart</a></button>
+</div>
+</body>
+</html>-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Product Details</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+    }
+    .product-details {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        margin: 20px auto;
+    }
+    .product-details img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        max-height: 400px;
+    }
+    .product-name {
+        font-size: 24px;
+        font-weight: bold;
+        margin-top: 20px;
+    }
+    .price {
+        font-size: 20px;
+        margin-top: 10px;
+        color: green;
+    }
+    .description {
+        margin-top: 20px;
+        font-size: 16px;
+        color: #333;
+    }
+    .addToCart-button, .buyNow-button {
+        background-color: rgb(255, 216, 20);
+        border: 1px solid rgb(252, 210, 0);
+        color: black;
+        font-size: bold;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: background-color 0.3s ease;
+    }
+    .addToCart-button:hover, .buyNow-button:hover {
+        background-color: rgb(255, 200, 0);
+    }
+  </style>
+</head>
+<body>
+<div class="product-details">
+  <img th:src="${product.imageUrl}" alt="Product Image"/>
+  <h1 th:text="${product.name}" class="product-name">Product Name</h1>
+  <p th:text="'$' + ${product.price}" class="price">Product Price</p>
+  <p th:text="${product.description}" class="description">Product Description</p>
+  <button class="addToCart-button"><a th:href="@{/add-to-cart/{id}(id=${product.id})}">Add to Cart</a></button>
+  <button class="buyNow-button"><a th:href="@{/buy-now/{id}(id=${product.id})}">Buy Now</a></button>
 </div>
 </body>
 </html>

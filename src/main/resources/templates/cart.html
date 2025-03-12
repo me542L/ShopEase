@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Shopping Cart</title>
@@ -35,5 +35,90 @@
         <span th:text="'$' + ${cartItem.product.price * cartItem.quantity}">Total Price</span>
     </li>
 </ul>
+</body>
+</html>-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Shopping Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+        .cart-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        .product {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-align: left;
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .product img {
+            width: 100px;
+            height: auto;
+            object-fit: contain;
+            max-height: 100px;
+        }
+        .product-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-left: 20px;
+        }
+        .price {
+            font-size: 16px;
+            color: green;
+        }
+        .total-price {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: black;
+        }
+        .buyNow-button {
+            background-color: rgb(255, 216, 20);
+            border: 1px solid rgb(252, 210, 0);
+            color: black;
+            font-size: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+        .buyNow-button:hover {
+            background-color: rgb(255, 200, 0);
+        }
+    </style>
+</head>
+<body>
+<div class="cart-container">
+    <h1>Shopping Cart</h1>
+    <ul>
+        <li th:each="cartItem : ${cartItems}" class="product">
+            <img th:src="${cartItem.product.imageUrl}" alt="Product Image"/>
+            <span th:text="${cartItem.product.name}" class="product-name">Product Name</span>
+            <span th:text="${cartItem.quantity}">Quantity</span>
+            <span th:text="'$' + ${cartItem.product.price * cartItem.quantity}" class="price">Total Price</span>
+        </li>
+    </ul>
+    <p th:text="'Total Payable Amount: $' + ${totalAmount}" class="total-price"></p>
+    <button class="buyNow-button"><a th:href="@{/checkout}">Proceed to Checkout</a></button>
+</div>
 </body>
 </html>
