@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Checkout</title>
@@ -91,6 +91,208 @@
         <input type="text" id="mobile" name="mobile" required>
       </div>
       <p th:text="'Total Payable Amount: $' + ${product.price}" class="total-price"></p>
+      <div class="checkout-button">
+        <button type="submit">Place Order</button>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+</html>-->
+<!--<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Checkout</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        width: 80%;
+        margin: auto;
+        overflow: hidden;
+    }
+    header {
+        background: peru;
+        color: white;
+        padding: 10px 0;
+        text-align: center;
+    }
+    header h1 {
+        margin: 0;
+        font-size: 24px;
+    }
+    .checkout {
+        background: white;
+        padding: 20px;
+        margin-top: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+    }
+    .total-price {
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 20px;
+        color: black;
+    }
+    .checkout-button {
+        text-align: right;
+    }
+    .checkout-button button {
+        background: peru;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 18px;
+        cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Checkout</h1>
+</header>
+<div class="container">
+  <div class="checkout">
+    <form th:action="@{/place-order}" method="post">
+      <div class="form-group">
+        <label for="address">Delivery Address</label>
+        <input type="text" id="address" name="address" required>
+      </div>
+      <div class="form-group">
+        <label for="payment">Payment Options</label>
+        <select id="payment" name="payment" required>
+          <option value="credit_card">Credit Card</option>
+          <option value="debit_card">Debit Card</option>
+          <option value="paypal">PayPal</option>
+          <option value="upi">UPI</option>
+          <option value="cash_on_delivery">Cash On Delivery</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="mobile">Mobile Number</label>
+        <input type="text" id="mobile" name="mobile" required>
+      </div>
+
+      <p th:text="'Quantity: ' + ${quantity}" class="total-price">Quantity: 1</p>
+      <p th:text="'Total Payable Amount: $' + ${product.price * quantity}" class="total-price">Total Payable Amount: $0.00</p>
+      <div class="checkout-button">
+        <button type="submit">Place Order</button>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+</html>-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Checkout</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        width: 80%;
+        margin: auto;
+        overflow: hidden;
+    }
+    header {
+        background: peru;
+        color: white;
+        padding: 10px 0;
+        text-align: center;
+    }
+    header h1 {
+        margin: 0;
+        font-size: 24px;
+    }
+    .checkout {
+        background: white;
+        padding: 20px;
+        margin-top: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+    }
+    .total-price {
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 20px;
+        color: black;
+    }
+    .checkout-button {
+        text-align: right;
+    }
+    .checkout-button button {
+        background: peru;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 18px;
+        cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Checkout</h1>
+</header>
+<div class="container">
+  <div class="checkout">
+    <form th:action="@{/place-order}" method="post">
+      <div class="form-group">
+        <label for="address">Delivery Address</label>
+        <input type="text" id="address" name="address" required>
+      </div>
+      <div class="form-group">
+        <label for="payment">Payment Options</label>
+        <select id="payment" name="payment" required>
+          <option value="credit_card">Credit Card</option>
+          <option value="debit_card">Debit Card</option>
+          <option value="paypal">PayPal</option>
+          <option value="upi">UPI</option>
+          <option value="cash_on_delivery">Cash On Delivery</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="mobile">Mobile Number</label>
+        <input type="text" id="mobile" name="mobile" required>
+      </div>
+      <p th:text="'Total Payable Amount: $' + (${totalAmount} * (${quantity ?: 1}))" class="total-price"></p>
       <div class="checkout-button">
         <button type="submit">Place Order</button>
       </div>

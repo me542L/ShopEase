@@ -51,12 +51,18 @@ public class ShopController {
         return "redirect:/cart"; // Redirect to the cart page
     }
 
-    @GetMapping("/buy-now/{id}")
-    public String buyNow(@PathVariable("id") Long id, Model model) {
-        Product product = productService.getProductById(id);
+    @GetMapping("/buy-now")
+    public String buyNow(@RequestParam("id") Long productId, @RequestParam("quantity") Integer quantity, Model model) {
+        if (quantity == null) {
+            quantity = 1; // Default quantity if not provided
+        }
+
+        Product product = productService.getProductById(productId);
         model.addAttribute("product", product);
+        model.addAttribute("quantity", quantity);
         return "buy-now";
     }
+
 
     @GetMapping("/checkout")
     public String checkout(Model model) {

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Shopping Cart</title>
@@ -96,6 +96,238 @@
             </div>
             <div class="cart-item-price">
                 <p th:text="'$' + ${cartItem.product.price * cartItem.quantity}">Total Price</p>
+            </div>
+            <div class="remove-button">
+                <form th:action="@{/remove-from-cart}" method="post">
+                    <input type="hidden" name="cartItemId" th:value="${cartItem.id}">
+                    <button type="submit">Remove</button>
+                </form>
+            </div>
+        </div>
+        <div class="total" th:text="'Total: $' + ${totalAmount}">Total: $0.00</div>
+        <div class="checkout-button">
+            <a th:href="@{/checkout}">Checkout</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>-->
+<!--<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Shopping Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: peru;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .cart {
+            background: white;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .cart-item img {
+            width: 100px;
+            height: auto;
+            border-radius: 5px;
+        }
+        .cart-item-details {
+            flex: 1;
+            margin-left: 20px;
+        }
+        .cart-item-details h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .cart-item-details p {
+            margin-bottom: 5px;
+        }
+        .cart-item-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: black;
+        }
+        .remove-button {
+            margin-left: 20px;
+        }
+        .total {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+            text-align: right;
+        }
+        .checkout-button {
+            display: block;
+            width: 100%;
+            max-width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            text-align: center;
+            background-color: peru;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .checkout-button:hover {
+            background-color: darkorange;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Shopping Cart</h1>
+</header>
+<div class="container">
+    <div class="cart">
+        <div th:each="cartItem : ${cartItems}" class="cart-item">
+            <img th:src="${cartItem.product.imageUrl}" alt="Product Image">
+            <div class="cart-item-details">
+                <h2 th:text="${cartItem.product.name}">Product Name</h2>
+                <p th:text="'$' + ${cartItem.product.price}">Product Price</p>
+            </div>
+            <div class="cart-item-price">
+                <p th:text="'$' + ${cartItem.product.price * cartItem.quantity}">Total Price</p>
+            </div>
+            <div class="remove-button">
+                <form th:action="@{/remove-from-cart}" method="post">
+                    <input type="hidden" name="cartItemId" th:value="${cartItem.id}">
+                    <button type="submit">Remove</button>
+                </form>
+            </div>
+        </div>
+        <div class="total" th:text="'Total: $' + ${totalAmount}">Total: $0.00</div>
+        <button class="checkout-button" onclick="window.location.href='/checkout'">Checkout</button>
+    </div>
+</div>
+</body>
+</html>-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Shopping Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: peru;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .cart {
+            background: white;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eaeaea;
+            padding: 10px 0;
+        }
+        .cart-item img {
+            width: 100px;
+            height: auto;
+        }
+        .cart-item-details {
+            flex: 2;
+            margin-left: 20px;
+        }
+        .cart-item-details h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .cart-item-details p {
+            margin: 5px 0;
+        }
+        .cart-item-price {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .cart-item-quantity {
+            margin: 5px 0;
+        }
+        .total {
+            text-align: right;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .checkout-button,
+        .remove-button {
+            text-align: right;
+            margin-top: 10px;
+        }
+        .checkout-button a,
+        .remove-button form button {
+            text-decoration: none;
+            background: peru;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Shopping Cart</h1>
+</header>
+<div class="container">
+    <div class="cart">
+        <div th:each="cartItem : ${cartItems}" class="cart-item">
+            <img th:src="${cartItem.product.imageUrl}" alt="Product Image">
+            <div class="cart-item-details">
+                <h2 th:text="${cartItem.product.name}">Product Name</h2>
+                <p th:text="'$' + ${cartItem.product.price}">Product Price</p>
+                <p class="cart-item-quantity" th:text="'Quantity: ' + ${cartItem.quantity}">Quantity: 1</p> <!-- Display Quantity -->
+                <a th:href="@{/product/{id}(id=${cartItem.product.id})}">View Details</a> <!-- Link to Product Details -->
+            </div>
+            <div class="cart-item-price">
+                <p th:text="'$' + ${cartItem.product.price * cartItem.quantity}">Total Price</p> <!-- Total Price -->
             </div>
             <div class="remove-button">
                 <form th:action="@{/remove-from-cart}" method="post">

@@ -1,3 +1,91 @@
+<!--<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Product Details</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+    }
+    .product-details-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        max-width: 800px;
+        margin: 20px auto;
+    }
+    .product-details {
+        width: 100%;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .product-details img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+    .product-details label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+    .product-details p {
+        margin-bottom: 10px;
+    }
+    .button-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+    .submit-button, .buyNow-button {
+        background-color: rgb(255, 216, 20);
+        border: 1px solid rgb(252, 210, 0);
+        color: black;
+        font-size: bold;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-decoration: none;
+        text-align: center;
+    }
+    .submit-button:hover, .buyNow-button:hover {
+        background-color: rgb(255, 200, 0);
+    }
+  </style>
+</head>
+<body>
+<div class="product-details-container">
+  <h1>Product Details</h1>
+  <div class="product-details">
+    <img th:src="${product.imageUrl}" alt="Product Image">
+    <label for="product-name">Product Name:</label>
+    <p id="product-name" th:text="${product.name}">Product Name</p>
+    <label for="product-price">Price:</label>
+    <p id="product-price" th:text="'$' + ${product.price}">Product Price</p>
+    <label for="product-description">Description:</label>
+    <p id="product-description" th:text="${product.description}">Product Description</p>
+    <label for="product-rating">Rating:</label>
+    <p id="product-rating" th:text="${product.ratings} + ' stars'">Product Rating</p>
+
+
+    <form th:action="@{/add-to-cart}" method="post">
+      <input type="hidden" name="productId" th:value="${product.id}">
+      <label for="quantity">Quantity:</label>
+      <input type="number" name="quantity" id="quantity" value="1" min="1" required>
+      <div class="button-container">
+        <button type="submit" class="submit-button">Add to Cart</button>
+        <a th:href="@{/buy-now/{id}(id=${product.id})}" class="buyNow-button">Buy Now</a>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+</html>-->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -79,7 +167,8 @@
       <input type="number" name="quantity" id="quantity" value="1" min="1" required>
       <div class="button-container">
         <button type="submit" class="submit-button">Add to Cart</button>
-        <a th:href="@{/buy-now/{id}(id=${product.id})}" class="buyNow-button">Buy Now</a>
+       <!-- <a th:href="@{/buy-now/{id}(id=${product.id})}" class="buyNow-button">Buy Now</a>-->
+        <a th:href="@{/buy-now(id=${product.id}, quantity=${quantity})}" class="buy-now-button">Buy Now</a>
       </div>
     </form>
   </div>
