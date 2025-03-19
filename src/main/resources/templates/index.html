@@ -1,169 +1,3 @@
-<!--<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Online Shop</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-        body {
-            background-color: #f5f5f5;
-        }
-        header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background-color: peru;
-            color: white;
-            padding: 10px 20px;
-            height: 80px;
-        }
-        .logo {
-            font-size: 54px;
-            font-weight: bold;
-        }
-        .search-bar {
-            flex: 1;
-            margin: 0 10px;
-            padding: 8px;
-            border-radius: 5px;
-            border: none;
-        }
-        .return-button {
-            font-size: 28px;
-            margin-right: 5px;
-            background-color: peru;
-            color: white;
-            border-color: peru;
-            cursor: pointer;
-        }
-        .cart-icon {
-            font-size: 28px;
-            position: relative;
-            background-color: peru;
-            color: white;
-            border-color: peru;
-            cursor: pointer;
-        }
-        .cart-count {
-            background: orange;
-            color: black;
-            border-radius: 50%;
-            padding: 2px 6px;
-            position: absolute;
-            top: -5px;
-            right: -10px;
-            font-size: 14px;
-        }
-        .product {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            text-align: left;
-            background: white;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            height: 100%;
-        }
-        .product img {
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-            max-height: 180px;
-        }
-        .product-name {
-            padding-top: 30px;
-            font-weight: 400;
-            font-size: 16px;
-            min-height: 50px;
-            margin-top: 10px;
-        }
-        .addToCart-button, .buyNow-button {
-            background-color: rgb(255, 216, 20);
-            border: 1px solid rgb(252, 210, 0);
-            color: black;
-            font-size: bold;
-            margin-left: 545px;
-            margin-right: 545px;
-            padding-left: 35px;
-            padding-right: 35px;
-            padding-top: 5px;
-            padding-bottom: 5px;
-            border-radius: 15px;
-            cursor: pointer;
-            margin-top: 12px;
-            transition: background-color 0.3s ease;
-        }
-        .addToCart-button:hover, .buyNow-button:hover {
-            background-color: rgb(255, 200, 0);
-        }
-        .price {
-            font-size: 18px;
-            margin-top: 8px;
-            font-weight: 700;
-            color: black;
-            text-align: left;
-        }
-        .product-quantity-container {
-            margin-bottom: 17px;
-        }
-        .submit-button {
-            margin: 0 10px;
-            padding: 8px;
-            border-radius: 5px;
-            border: none;
-        }
-    </style>
-</head>
-<body>
-<header>
-    <div class="logo">ShopEase</div>
-    <form th:action="@{/products/search}" method="get">
-        <input type="text" class="search-bar" name="keyword" placeholder="Search products..." required>
-        <button type="submit" class="submit-button">Search</button>
-    </form>
-    <div class="cart">
-        <button class="return-button"><span style="font-size: 650;">Returns</span>
-            <span style="font-size: 700;">& Orders</span>
-        </button>
-        <button class="cart-icon" onclick="window.location.href='/cart'">🛒Cart</button>
-    </div>
-</header>
-<ul>
-    <li th:each="product : ${products}" class="product">
-        <a th:href="@{/product/{id}(id=${product.id})}" th:text="${product.name}" class="product-name">Product Name</a>
-        <p th:text="${product.ratings}">Ratings:</p>
-        <span th:text="'$' + ${product.price}" class="price">Product Price</span>
-        <img th:src="${product.imageUrl}" alt="Product Image"/>
-        <div class="product-quantity-container">
-            <form th:action="@{/add-to-cart}" method="post">
-                <input type="hidden" name="productId" th:value="${product.id}">
-                <label for="quantity">Quantity:</label>
-                <select name="quantity" id="quantity">
-                    <option selected value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                </select>
-                <button type="submit" class="addToCart-button">Add to Cart</button>
-            </form>
-        </div>
-        <button class="buyNow-button"><a th:href="@{/buy-now/{id}(id=${product.id})}">Buy Now</a></button>
-    </li>
-</ul>
-</body>
-</html>-->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -198,6 +32,12 @@
             border-radius: 5px;
             border: none;
         }
+        .se-button {
+            margin: 0 10px;
+            padding: 8px;
+            border-radius: 5px;
+            border: none;
+        }
         .return-button {
             font-size: 28px;
             margin-right: 5px;
@@ -214,79 +54,63 @@
             border-color: peru;
             cursor: pointer;
         }
-        .cart-count {
-            background: orange;
-            color: black;
-            border-radius: 50%;
-            padding: 2px 6px;
-            position: absolute;
-            top: -5px;
-            right: -10px;
-            font-size: 14px;
-        }
         .product {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            text-align: left;
             background: white;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            height: 100%;
-            width: 300px;
-            margin: 10px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
         }
         .product img {
-            width: 100%;
-            height: auto;
+            width: 200px;
+            height: 350px;
             object-fit: contain;
-            max-height: 180px;
+            margin-bottom: 10px;
         }
-        .product-name {
-            padding-top: 30px;
-            font-weight: 400;
-            font-size: 16px;
-            min-height: 50px;
-            margin-top: 10px;
+        .product-name, .price, .ratings {
+            align-self: flex-start;
+            margin-left: 9px;
         }
+        .product-container {
+         align-self: flex-start;
+            width:100%;
+         }
         .button-container {
             display: flex;
             justify-content: space-between;
             width: 100%;
-            margin-top: 12px;
-        }
-        .submit-button, .buyNow-button {
-            background-color: rgb(255, 216, 20);
-            border: 1px solid rgb(252, 210, 0);
-            color: black;
-            font-size: bold;
-            padding: 10px 20px;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            text-decoration: none;
-            text-align: center;
+            margin-top: 10px;
+
         }
         .submit-button:hover, .buyNow-button:hover {
             background-color: rgb(255, 200, 0);
         }
         .price {
             font-size: 18px;
-            margin-top: 8px;
+            margin-top: 10px;
             font-weight: 700;
             color: black;
             text-align: left;
         }
-        .product-quantity-container {
-            margin-bottom: 17px;
+        .ratings {
+            margin-top: 10px;
+            font-weight: bold;
         }
-        .submit-button {
-            margin: 0 10px;
+        .submit-button, .buyNow-button {
+            flex: 1;
+            margin: 5px;
+            text-align: center;
+            color: black;
+            background-color: rgb(245, 190, 0);
+            font-weight: 500;
             padding: 8px;
-            border-radius: 5px;
+            border-radius: 35px;
             border: none;
+            padding-top: 3px;
+            padding-bottom: 3px;
         }
     </style>
 </head>
@@ -295,7 +119,7 @@
     <div class="logo">ShopEase</div>
     <form th:action="@{/products/search}" method="get">
         <input type="text" class="search-bar" name="keyword" placeholder="Search products..." required>
-        <button type="submit" class="submit-button">Search</button>
+        <button type="submit" class="se-button">Search</button>
     </form>
     <div class="cart">
         <button class="return-button"><span style="font-size: 650;">Returns</span>
@@ -304,37 +128,29 @@
         <button class="cart-icon" onclick="window.location.href='/cart'">🛒Cart</button>
     </div>
 </header>
+
+<ul>
+    <li th:each="product : ${products}" class="product">
+        <a th:href="@{/product/{id}(id=${product.id})}" th:text="${product.name}" class="product-name">Product Name</a>
+        <p th:text="'Ratings : '+ ${product.ratings}" class="ratings">Ratings:</p>
+        <span th:text="'Product price : ' + '$' + ${product.price}" class="price">Product Price</span>
+        <img th:src="${product.imageUrl}" alt="Product Image"/>
 <div class="product-container">
-    <ul>
-        <li th:each="product : ${products}" class="product">
-            <a th:href="@{/product/{id}(id=${product.id})}" th:text="${product.name}" class="product-name">Product Name</a>
-            <p th:text="${product.ratings}">Ratings:</p>
-            <span th:text="'$' + ${product.price}" class="price">Product Price</span>
-            <img th:src="${product.imageUrl}" alt="Product Image"/>
-            <div class="product-quantity-container">
-                <form th:action="@{/add-to-cart}" method="post">
-                    <input type="hidden" name="productId" th:value="${product.id}">
-                    <label for="quantity">Quantity:</label>
-                    <select name="quantity" id="quantity">
-                        <option selected value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                    </select>
-                    <div class="button-container">
-                        <button type="submit" class="submit-button">Add to Cart</button>
-                        <a th:href="@{/buy-now/{id}(id=${product.id})}" class="buyNow-button">Buy Now</a>
-                    </div>
-                </form>
-            </div>
-        </li>
-    </ul>
+        <div class="button-container">
+            <form th:action="@{/add-to-cart}" method="post">
+                <input type="hidden" name="productId" th:value="${product.id}">
+                <input type="hidden" name="quantity" value="1">
+                <button type="submit" class="submit-button">Add to Cart</button>
+            </form>
+            <form th:action="@{/buy-now}" method="post">
+                <input type="hidden" name="productId" th:value="${product.id}">
+                <input type="hidden" name="quantity" value="1">
+                <button type="submit" class="buyNow-button">Buy Now</button>
+            </form>
+        </div>
 </div>
+    </li>
+</ul>
+
 </body>
 </html>

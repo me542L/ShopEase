@@ -201,7 +201,7 @@
 </div>
 </body>
 </html>-->
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Checkout</title>
@@ -298,6 +298,110 @@
       </div>
     </form>
   </div>
+</div>
+</body>
+</html>-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Checkout Single Product</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+    }
+    .checkout-container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background: white;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .checkout-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .product-details {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .product-details img {
+        max-width: 150px;
+        margin-right: 20px;
+    }
+    .product-info {
+        flex: 1;
+    }
+    .product-info h2 {
+        margin-bottom: 10px;
+    }
+    .product-info p {
+        margin-bottom: 5px;
+    }
+    .total-amount {
+        font-size: 20px;
+        font-weight: bold;
+        text-align: right;
+        margin-top: 20px;
+    }
+    .checkout-form {
+        display: flex;
+        flex-direction: column;
+    }
+    .checkout-form label {
+        margin-bottom: 5px;
+    }
+    .checkout-form input, .checkout-form select {
+        margin-bottom: 10px;
+        padding: 8px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+    .checkout-form button {
+        padding: 10px;
+        background-color: rgb(255, 216, 20);
+        border: 1px solid rgb(252, 210, 0);
+        color: black;
+        font-size: bold;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<div class="checkout-container">
+  <div class="checkout-header">
+    <h1>Checkout</h1>
+  </div>
+  <div class="product-details">
+    <img th:src="${product.imageUrl}" alt="Product Image">
+    <div class="product-info">
+      <h2 th:text="${product.name}">Product Name</h2>
+      <p th:text="'Price: $' + ${product.price}">Product Price</p>
+      <p th:text="'Quantity: ' + ${quantity}">Quantity</p>
+    </div>
+  </div>
+  <div class="total-amount">
+    <p th:text="'Total Amount: $' + ${product.price * quantity}">Total Amount</p>
+  </div>
+  <form class="checkout-form" th:action="@{/place-order-single-product}" method="post">
+    <input type="hidden" name="productId" th:value="${product.id}">
+    <input type="hidden" name="quantity" th:value="${quantity}">
+    <input type="hidden" name="totalAmount" th:value="${product.price * quantity}">
+    <label for="address">Shipping Address:</label>
+    <input type="text" id="address" name="address" required>
+    <label for="payment">Payment Method:</label>
+    <select id="payment" name="payment" required>
+      <option value="credit-card">Credit Card</option>
+      <option value="paypal">PayPal</option>
+      <option value="cash-on-delivery">Cash on Delivery</option>
+    </select>
+    <label for="mobile">Mobile Number:</label>
+    <input type="text" id="mobile" name="mobile" required>
+    <button type="submit">Place Order</button>
+  </form>
 </div>
 </body>
 </html>

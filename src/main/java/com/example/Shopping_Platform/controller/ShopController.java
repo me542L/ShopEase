@@ -19,9 +19,20 @@ public class ShopController {
 
     private List<CartItem> cart = new ArrayList<>();
 
-    @GetMapping("/products")
+    /*@GetMapping("/products")
     public String viewProductsPage(Model model) {
         model.addAttribute("products", productService.getAllProducts());
+        return "index";
+    }*/
+
+    @GetMapping("/products")
+    public String viewProductsPage(Model model) {
+        List<Product> products = productService.getAllProducts();
+        if (products == null || products.isEmpty()) {
+            model.addAttribute("errorMessage", "No products available");
+        } else {
+            model.addAttribute("products", products);
+        }
         return "index";
     }
 
@@ -45,23 +56,14 @@ public class ShopController {
         return "search"; // Make sure search.html exists!
     }
 
-    @PostMapping("/add-to-cart")
-    public String addToCart(@RequestParam("productId") Long productId, @RequestParam("quantity") int quantity) {
-        productService.addToCart(productId, quantity);
-        return "redirect:/cart"; // Redirect to the cart page
-    }
-
-    @GetMapping("/buy-now")
-    public String buyNow(@RequestParam("id") Long productId, @RequestParam("quantity") Integer quantity, Model model) {
-        if (quantity == null) {
-            quantity = 1; // Default quantity if not provided
-        }
-
+    @PostMapping("/buy-now")
+    public String buyNow(@RequestParam("productId") Long productId, @RequestParam("quantity") int quantity, Model model) {
         Product product = productService.getProductById(productId);
         model.addAttribute("product", product);
         model.addAttribute("quantity", quantity);
         return "buy-now";
     }
+
 
 
     @GetMapping("/checkout")
@@ -112,7 +114,7 @@ public class ShopController {
         productService.removeFromCart(cartItemId);
         return "redirect:/cart";
     }
-    @GetMapping("/checkout-single-product")
+    /*@GetMapping("/checkout-single-product")
     public String checkoutSingleProduct(@RequestParam("id") Long id, Model model) {
         Product product = productService.getProductById(id);
         if (product == null) {
@@ -120,8 +122,20 @@ public class ShopController {
         }
         model.addAttribute("product", product);
         return "checkout-single-product";
+    }*/
+    @GetMapping("/checkout-single-product")
+    public String checkoutSingleProduct(@RequestParam("id") Long id, @RequestParam("quantity") int quantity, Model model) {
+        Product product = productService.getProductById(id);
+        if (product == null) {
+            return "error/404";
+        }
+        double totalAmount = product.getPrice() * quantity;
+        model.addAttribute("product", product);
+        model.addAttribute("quantity", quantity);
+        model.addAttribute("totalAmount", totalAmount);
+        return "checkout-single-product";
     }
-    @PostMapping("/place-order-single-product")
+    /*@PostMapping("/place-order-single-product")
     public String placeOrderSingleProduct(@RequestParam("productId") Long productId,
                                           @RequestParam("address") String address,
                                           @RequestParam("payment") String payment,
@@ -139,4 +153,29 @@ public class ShopController {
         return "order-confirmation-single-product";
 
 }
-}
+    @PostMapping("/add-to-cart")
+    public String addToCart(@RequestParam("productId") Long productId, @RequestParam("quantity") int quantity) {
+        productService.addToCart(productId, quantity);
+        return "redirect:/cart"; // Redirect to the cart page
+    }*/
+    @PostMapping("/place-order-single-product")
+    public String placeOrderSingleProduct(@RequestParam("productId") Long productId,
+                                          @RequestParam("quantity") int quantity,
+                                          @RequestParam("address") String address,
+                                          @RequestParam("payment") String payment,
+                                          @RequestParam("mobile") String mobile,
+                                          Model model) {
+        Product product = productService.getProductById(productId);
+        if (product == null) {
+            return "error/404";
+        }
+        double totalAmount = product.getPrice() * quantity;
+        model.addAttribute("product", product);
+        model.addAttribute("quantity", quantity);
+        model.addAttribute("address", address);
+        model.addAttribute("payment", payment);
+        model.addAttribute("mobile", mobile);
+        model.addAttribute("totalAmount", totalAmount);
+        return "order-confirmation-single-product";
+
+}}

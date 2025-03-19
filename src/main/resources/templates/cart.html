@@ -284,6 +284,7 @@
         .cart-item-price {
             font-size: 18px;
             font-weight: bold;
+            margin-right:9px;
         }
         .cart-item-quantity {
             margin: 5px 0;
@@ -327,7 +328,7 @@
                 <a th:href="@{/product/{id}(id=${cartItem.product.id})}">View Details</a> <!-- Link to Product Details -->
             </div>
             <div class="cart-item-price">
-                <p th:text="'$' + ${cartItem.product.price * cartItem.quantity}">Total Price</p> <!-- Total Price -->
+                <p th:text="'$' + ${#numbers.formatDecimal(cartItem.product.price * cartItem.quantity, 1, 2)}">Total Price</p> <!-- Total Price -->
             </div>
             <div class="remove-button">
                 <form th:action="@{/remove-from-cart}" method="post">
@@ -336,7 +337,7 @@
                 </form>
             </div>
         </div>
-        <div class="total" th:text="'Total: $' + ${totalAmount}">Total: $0.00</div>
+        <div class="total" th:text="'Total: $' + ${#numbers.formatDecimal(toatalAmount, 1, 2)}">Total: $0.00</div>
         <div class="checkout-button">
             <a th:href="@{/checkout}">Checkout</a>
         </div>
