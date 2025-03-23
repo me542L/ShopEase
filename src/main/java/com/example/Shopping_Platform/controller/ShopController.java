@@ -19,12 +19,6 @@ public class ShopController {
 
     private List<CartItem> cart = new ArrayList<>();
 
-    /*@GetMapping("/products")
-    public String viewProductsPage(Model model) {
-        model.addAttribute("products", productService.getAllProducts());
-        return "index";
-    }*/
-
     @GetMapping("/products")
     public String viewProductsPage(Model model) {
         List<Product> products = productService.getAllProducts();
@@ -42,6 +36,7 @@ public class ShopController {
         model.addAttribute("product", product);
         return "product";
     }
+
     @GetMapping("/products/search")
     public String searchProducts(@RequestParam(value = "keyword", required = false) String keyword, Model model) {
         List<Product> products;
@@ -63,8 +58,6 @@ public class ShopController {
         model.addAttribute("quantity", quantity);
         return "buy-now";
     }
-
-
 
     @GetMapping("/checkout")
     public String checkout(Model model) {
@@ -94,6 +87,7 @@ public class ShopController {
         model.addAttribute("totalAmount", totalAmount);
         return "cart";
     }
+
     @PostMapping("/place-order")
     public String placeOrder(@RequestParam("address") String address,
                              @RequestParam("payment") String payment,
@@ -109,20 +103,13 @@ public class ShopController {
         model.addAttribute("mobile", mobile);
         return "order-confirmation";
     }
+
     @PostMapping("/remove-from-cart")
     public String removeFromCart(@RequestParam("cartItemId") Long cartItemId) {
         productService.removeFromCart(cartItemId);
         return "redirect:/cart";
     }
-    /*@GetMapping("/checkout-single-product")
-    public String checkoutSingleProduct(@RequestParam("id") Long id, Model model) {
-        Product product = productService.getProductById(id);
-        if (product == null) {
-            return "error/404";
-        }
-        model.addAttribute("product", product);
-        return "checkout-single-product";
-    }*/
+
     @GetMapping("/checkout-single-product")
     public String checkoutSingleProduct(@RequestParam("id") Long id, @RequestParam("quantity") int quantity, Model model) {
         Product product = productService.getProductById(id);
@@ -135,29 +122,13 @@ public class ShopController {
         model.addAttribute("totalAmount", totalAmount);
         return "checkout-single-product";
     }
-    /*@PostMapping("/place-order-single-product")
-    public String placeOrderSingleProduct(@RequestParam("productId") Long productId,
-                                          @RequestParam("address") String address,
-                                          @RequestParam("payment") String payment,
-                                          @RequestParam("mobile") String mobile,
-                                          Model model) {
-        Product product = productService.getProductById(productId);
-        if (product == null) {
-            return "error/404";
-        }
-        model.addAttribute("product", product);
-        model.addAttribute("address", address);
-        model.addAttribute("payment", payment);
-        model.addAttribute("mobile", mobile);
-        model.addAttribute("totalAmount", product.getPrice());
-        return "order-confirmation-single-product";
 
-}
     @PostMapping("/add-to-cart")
     public String addToCart(@RequestParam("productId") Long productId, @RequestParam("quantity") int quantity) {
         productService.addToCart(productId, quantity);
         return "redirect:/cart"; // Redirect to the cart page
-    }*/
+    }
+
     @PostMapping("/place-order-single-product")
     public String placeOrderSingleProduct(@RequestParam("productId") Long productId,
                                           @RequestParam("quantity") int quantity,
@@ -178,4 +149,5 @@ public class ShopController {
         model.addAttribute("totalAmount", totalAmount);
         return "order-confirmation-single-product";
 
-}}
+}
+}

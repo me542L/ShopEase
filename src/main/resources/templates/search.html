@@ -3,37 +3,62 @@
 <head>
     <title>Search Results</title>
     <style>
-        .addToCart-button{
-    background-color: rgb(255, 216, 20);
-    border: 1px solid rgb(252, 210, 0);
-    color: black;
-    font-size: bold;
-    margin-left:545px;
-    margin-right:545px;
-    padding-left: 35px;
-    padding-right: 35px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    border-radius: 15px;
-    cursor :pointer;
-    margin-top: 12px;
-    transition: background-color 0.3s ease;
-}
-.addToCart-button:hover{
-    background-color:  rgb(255, 200, 0);;
-}
+        .button-container {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .button-container form {
+            flex: 1;
+            display: flex;
+        }
+
+        .addToCart-button, .buyNow-button {
+            flex: 1;
+            text-align: center;
+            color: black;
+            background-color: rgb(245, 190, 0);
+            font-weight: 500;
+            padding: 10px;
+            border-radius: 35px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            font-size:13px;
+            font-weight:bold;
+        }
+
+        .addToCart-button:hover, .buyNow-button:hover {
+            background-color: rgb(255, 200, 0);
+        }
     </style>
 </head>
 <body>
 <h2>Search Results:</h2>
 <ul>
-    <li th:each="product : ${products}">
-        <h3 th:text="${product.name}"></h3>
+    <li th:each="product : ${products}" class="product">
+
+        <a th:href="@{/product/{id}(id=${product.id})}" th:text="${product.name}" class="product-name">Product Name</a>
         <img th:src="${product.imageUrl}" alt="Product Image" width="100">
         <p th:text="${product.description}"></p>
         <p>Rating: <span th:text="${product.ratings != null? product.ratings:'No Ratings'}"></span></p>
+
+
+        <div class="button-container">
+            <form th:action="@{/add-to-cart}" method="post">
+                <input type="hidden" name="productId" th:value="${product.id}">
+                <input type="hidden" name="quantity" value="1">
+                <button type="submit" class="addToCart-button">Add to Cart</button>
+            </form>
+            <form th:action="@{/buy-now}" method="post">
+                <input type="hidden" name="productId" th:value="${product.id}">
+                <input type="hidden" name="quantity" value="1">
+                <button type="submit" class="buyNow-button">Buy Now</button>
+            </form>
+        </div>
     </li>
 </ul>
-<button class="addToCart-button">Add to Cart</button>
 </body>
 </html>

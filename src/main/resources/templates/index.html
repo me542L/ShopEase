@@ -74,20 +74,6 @@
             align-self: flex-start;
             margin-left: 9px;
         }
-        .product-container {
-         align-self: flex-start;
-            width:100%;
-         }
-        .button-container {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            margin-top: 10px;
-
-        }
-        .submit-button:hover, .buyNow-button:hover {
-            background-color: rgb(255, 200, 0);
-        }
         .price {
             font-size: 18px;
             margin-top: 10px;
@@ -99,19 +85,38 @@
             margin-top: 10px;
             font-weight: bold;
         }
-        .submit-button, .buyNow-button {
-            flex: 1;
-            margin: 5px;
-            text-align: center;
-            color: black;
-            background-color: rgb(245, 190, 0);
-            font-weight: 500;
-            padding: 8px;
-            border-radius: 35px;
-            border: none;
-            padding-top: 3px;
-            padding-bottom: 3px;
-        }
+       .button-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.button-container form {
+    flex: 1;
+    display: flex;
+}
+
+.submit-button, .buyNow-button {
+    flex: 1;
+    text-align: center;
+    color: black;
+    background-color: rgb(245, 190, 0);
+    font-weight: 500;
+    padding: 10px;
+    border-radius: 35px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.submit-button:hover, .buyNow-button:hover {
+    background-color: rgb(255, 200, 0);
+}
+
+
     </style>
 </head>
 <body>
@@ -122,9 +127,6 @@
         <button type="submit" class="se-button">Search</button>
     </form>
     <div class="cart">
-        <button class="return-button"><span style="font-size: 650;">Returns</span>
-            <span style="font-size: 700;">& Orders</span>
-        </button>
         <button class="cart-icon" onclick="window.location.href='/cart'">🛒Cart</button>
     </div>
 </header>
@@ -135,7 +137,7 @@
         <p th:text="'Ratings : '+ ${product.ratings}" class="ratings">Ratings:</p>
         <span th:text="'Product price : ' + '$' + ${product.price}" class="price">Product Price</span>
         <img th:src="${product.imageUrl}" alt="Product Image"/>
-<div class="product-container">
+
         <div class="button-container">
             <form th:action="@{/add-to-cart}" method="post">
                 <input type="hidden" name="productId" th:value="${product.id}">
@@ -148,7 +150,6 @@
                 <button type="submit" class="buyNow-button">Buy Now</button>
             </form>
         </div>
-</div>
     </li>
 </ul>
 
