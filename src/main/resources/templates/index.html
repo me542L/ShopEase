@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Online Shop</title>
@@ -153,5 +153,154 @@
     </li>
 </ul>
 
+</body>
+</html>-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Online Shop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #f5f5f5;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: peru;
+            color: white;
+            padding: 10px 20px;
+            height: 80px;
+        }
+        .logo {
+            font-size: 54px;
+            font-weight: bold;
+        }
+        .search-bar {
+            flex: 1;
+            margin: 0 10px;
+            padding: 8px;
+            border-radius: 5px;
+            border: none;
+        }
+        .se-button {
+            margin: 0 10px;
+            padding: 8px;
+            border-radius: 5px;
+            border: none;
+        }
+        .return-button {
+            font-size: 28px;
+            margin-right: 5px;
+            background-color: peru;
+            color: white;
+            border-color: peru;
+            cursor: pointer;
+        }
+        .cart-icon {
+            font-size: 28px;
+            position: relative;
+            background-color: peru;
+            color: white;
+            border-color: peru;
+            cursor: pointer;
+        }
+        .product {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
+        }
+        .product img {
+            width: 200px;
+            height: 350px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+        .product-name, .price, .ratings {
+            align-self: flex-start;
+            margin-left: 9px;
+        }
+        .price {
+            font-size: 18px;
+            margin-top: 10px;
+            font-weight: 700;
+            color: black;
+            text-align: left;
+        }
+        .ratings {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+       .button-container {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .button-container form {
+            flex: 1;
+            display: flex;
+        }
+        .submit-button, .buyNow-button {
+            flex: 1;
+            text-align: center;
+            color: black;
+            background-color: rgb(245, 190, 0);
+            font-weight: 500;
+            padding: 10px;
+            border-radius: 35px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        .submit-button:hover, .buyNow-button:hover {
+            background-color: rgb(255, 200, 0);
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="logo">ShopEase</div>
+    <form th:action="@{/products/search}" method="get">
+        <input type="text" class="search-bar" name="keyword" placeholder="Search products..." required>
+        <button type="submit" class="se-button">Search</button>
+    </form>
+    <div class="cart">
+        <button class="cart-icon" onclick="window.location.href='/cart'">🛒Cart</button>
+    </div>
+</header>
+<ul>
+    <li th:each="product : ${products}" class="product">
+        <a th:href="@{/product/{id}(id=${product.id})}" th:text="${product.name}" class="product-name">Product Name</a>
+        <p th:text="'Ratings : '+ ${product.ratings}" class="ratings">Ratings:</p>
+        <span th:text="'Product price : ' + '$' + ${product.price}" class="price">Product Price</span>
+        <img th:src="${product.imageUrl}" alt="Product Image"/>
+        <div class="button-container">
+            <form th:action="@{/add-to-cart}" method="post">
+                <input type="hidden" name="productId" th:value="${product.id}">
+                <input type="hidden" name="quantity" value="1">
+                <button type="submit" class="submit-button">Add to Cart</button>
+            </form>
+            <form th:action="@{/buy-now}" method="post">
+                <input type="hidden" name="productId" th:value="${product.id}">
+                <input type="hidden" name="quantity" value="1">
+                <button type="submit" class="buyNow-button">Buy Now</button>
+            </form>
+        </div>
+    </li>
+</ul>
 </body>
 </html>

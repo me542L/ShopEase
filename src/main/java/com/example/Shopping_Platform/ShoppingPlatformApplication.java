@@ -13,3 +13,4 @@ public class ShoppingPlatformApplication {
 		SpringApplication.run(ShoppingPlatformApplication.class, args);
 	}
 }
+

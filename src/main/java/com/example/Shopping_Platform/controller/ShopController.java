@@ -3,8 +3,12 @@ package com.example.Shopping_Platform.controller;
 
 import com.example.Shopping_Platform.model.CartItem;
 import com.example.Shopping_Platform.model.Product;
+import com.example.Shopping_Platform.model.User;
 import com.example.Shopping_Platform.service.ProductService;
+import com.example.Shopping_Platform.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -60,19 +64,22 @@ public class ShopController {
     }
 
     @GetMapping("/checkout")
-    public String checkout(Model model) {
-        List<CartItem> cartItems = productService.getCartItems();
-        double totalAmount = productService.getTotalAmount();
+    public String checkout(Model model,  @AuthenticationPrincipal User user) {
+        List<CartItem> cartItems = productService.getCartItems(user);
+        double totalAmount = productService.getTotalAmount(user);
 
         model.addAttribute("cartItems", cartItems);
         model.addAttribute("totalAmount", totalAmount);
         return "checkout";
     }
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/cart")
-    public String cart(Model model) {
-        List<CartItem> cartItems = productService.getCartItems();
-        double totalAmount = productService.getTotalAmount();
+    public String cart(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        User user = userService.findByUsername(userDetails.getUsername());
+        List<CartItem> cartItems = productService.getCartItems(user);
+        double totalAmount = productService.getTotalAmount(user);
 
         // Debug statements to check data
         cartItems.forEach(cartItem -> {
@@ -88,13 +95,20 @@ public class ShopController {
         return "cart";
     }
 
+    @PostMapping("/add-to-cart")
+    public String addToCart(@RequestParam("productId") Long productId, @RequestParam("quantity") int quantity, @AuthenticationPrincipal User user) {
+        productService.addToCart(productId, quantity, user);
+        return "redirect:/cart";
+    }
+
     @PostMapping("/place-order")
     public String placeOrder(@RequestParam("address") String address,
                              @RequestParam("payment") String payment,
                              @RequestParam("mobile") String mobile,
+                             @AuthenticationPrincipal User user,
                              Model model) {
-        List<CartItem> cartItems = productService.getCartItems();
-        double totalAmount = productService.getTotalAmount();
+        List<CartItem> cartItems = productService.getCartItems(user);
+        double totalAmount = productService.getTotalAmount(user);
 
         model.addAttribute("cartItems", cartItems);
         model.addAttribute("totalAmount", totalAmount);
@@ -123,11 +137,6 @@ public class ShopController {
         return "checkout-single-product";
     }
 
-    @PostMapping("/add-to-cart")
-    public String addToCart(@RequestParam("productId") Long productId, @RequestParam("quantity") int quantity) {
-        productService.addToCart(productId, quantity);
-        return "redirect:/cart"; // Redirect to the cart page
-    }
 
     @PostMapping("/place-order-single-product")
     public String placeOrderSingleProduct(@RequestParam("productId") Long productId,
