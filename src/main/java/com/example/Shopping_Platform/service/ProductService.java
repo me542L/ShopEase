@@ -35,12 +35,24 @@ public class ProductService {
                 .sum();
     }
 
-    public void addToCart(Long productId, int quantity, User user) {
+    /*public void addToCart(Long productId, int quantity, User user) {
         Product product = productRepository.findById(productId).orElseThrow(() -> new IllegalArgumentException("Invalid product ID"));
         CartItem cartItem = new CartItem(product, quantity,user);
 
         cartItemRepository.save(cartItem);
+    }*/
+
+    public void addToCart(Long productId, int quantity, User user) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid product ID"));
+
+        // Create a new CartItem
+        CartItem cartItem = new CartItem(product, quantity, user);
+
+        // Save the CartItem
+        cartItemRepository.save(cartItem);
     }
+
 
     public List<Product> getAllProducts() {
         return productRepository.findAll();

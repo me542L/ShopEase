@@ -96,11 +96,11 @@
             <div class="cart-item-details">
                 <h2 th:text="${cartItem.product.name}">Product Name</h2>
                 <p th:text="'$' + ${cartItem.product.price}">Product Price</p>
-                <p class="cart-item-quantity" th:text="'Quantity: ' + ${cartItem.quantity}">Quantity: 1</p> <!-- Display Quantity -->
-                <a th:href="@{/product/{id}(id=${cartItem.product.id})}">View Details</a> <!-- Link to Product Details -->
+                <p class="cart-item-quantity" th:text="'Quantity: ' + ${cartItem.quantity}">Quantity: 1</p>
+                <a th:href="@{/product/{id}(id=${cartItem.product.id})}">View Details</a>
             </div>
             <div class="cart-item-price">
-                <p th:text="'$' + ${#numbers.formatDecimal(cartItem.product.price * cartItem.quantity, 1, 2)}">Total Price</p> <!-- Total Price -->
+                <p th:text="'$' + ${#numbers.formatDecimal(cartItem.product.price * cartItem.quantity, 1, 2)}">Total Price</p>
             </div>
             <div class="remove-button">
                 <form th:action="@{/remove-from-cart}" method="post">
@@ -110,8 +110,15 @@
             </div>
         </div>
         <div class="total" th:text="'Total: $' + ${#numbers.formatDecimal(totalAmount, 1, 2)}">Total: $0.00</div>
-        <div class="checkout-button">
+
+        <div th:if="${#lists.isEmpty(cartItems)}" class="empty-cart-message">
+            <p style="color: red; font-size: 18px; text-align: center;">Your cart is empty. Add products before checkout.</p>
+        </div>
+
+        <div th:unless="${#lists.isEmpty(cartItems)}" class="checkout-button">
             <a th:href="@{/checkout}">Checkout</a>
+
+
         </div>
     </div>
 </div>

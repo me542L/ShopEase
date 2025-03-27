@@ -77,7 +77,16 @@ public class ShopController {
 
     @GetMapping("/cart")
     public String cart(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null) {
+            return "redirect:/login"; // Or an appropriate error page
+        }
+
+        // Retrieve user from database
         User user = userService.findByUsername(userDetails.getUsername());
+        if (user == null) {
+            return "redirect:/login"; // Or an appropriate error page
+        }
+
         List<CartItem> cartItems = productService.getCartItems(user);
         double totalAmount = productService.getTotalAmount(user);
 
@@ -95,11 +104,23 @@ public class ShopController {
         return "cart";
     }
 
+
     @PostMapping("/add-to-cart")
-    public String addToCart(@RequestParam("productId") Long productId, @RequestParam("quantity") int quantity, @AuthenticationPrincipal User user) {
+    public String addToCart(@RequestParam Long productId, @RequestParam int quantity, @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null) {
+            return "redirect:/login";
+        }
+        User user = userService.findByUsername(userDetails.getUsername());
+
+        if (user == null) {
+            return "redirect:/login";
+        }
+
         productService.addToCart(productId, quantity, user);
+
         return "redirect:/cart";
     }
+
 
     @PostMapping("/place-order")
     public String placeOrder(@RequestParam("address") String address,
