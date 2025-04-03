@@ -23,6 +23,16 @@ public class ShopController {
 
     private List<CartItem> cart = new ArrayList<>();
 
+    @GetMapping("/")
+    public String redirectToWelcome() {
+        return "redirect:/welcome";
+    }
+    @GetMapping("/welcome")
+    public String welcomePage() {
+        return "welcome"; // Ensure welcome.html exists in templates
+    }
+
+
     @GetMapping("/products")
     public String viewProductsPage(Model model) {
         List<Product> products = productService.getAllProducts();

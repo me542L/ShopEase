@@ -16,8 +16,43 @@ public class Product {
     private double price;
     private String imageUrl;
 
+    @ManyToOne
+    @JoinColumn(name = "seller_id", nullable = false)
+    private Seller seller;
+
+    @Version
+    private Long version;
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
+    public Seller getSeller() {
+        return seller;
+    }
+
+    public void setSeller(Seller seller) {
+        this.seller = seller;
+    }
+
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> cartItems;
+
+
+
+    /*@PrePersist
+    @PreUpdate
+    public void ensureDefaults() {
+        if (this.imageUrl == null) {
+            this.imageUrl = "/path/to/default/image.jpg"; // Set a default image URL
+        }
+    }*/
+
+
 
     public List<CartItem> getCartItems() {
         return cartItems;

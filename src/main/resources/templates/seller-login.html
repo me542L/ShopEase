@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Seller Login</title>
+  <style>
+    body {
+    background-image: url('https://www.toptal.com/designers/subtlepatterns/uploads/halftone-yellow.png');
+    font-family: Arial;
+    display:flex;
+    flex-direction:column;
+    justify-content :center;
+    align-items : center;
+    height :100vh;
+    margin :0;
+   }
+   .title {
+   font-size: 112px;
+   font-weight: bold;
+   color: #333;
+   margin-bottom: 70px;
+   text-align: center;
+   }
+   .login-container {
+       background: white;
+       padding: 20px;
+       border-radius: 8px;
+       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+       width: 300px;
+       text-align: center;
+   }
+    input {
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    button {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    .error-message {
+        color: red;
+        margin-top: 10px;
+    }
+    .seller {
+    font-size : 40px;
+    }
+  </style>
+</head>
+<body>
+<h1 class="title">ShopEase</h1>
+<h3 class="seller">Seller Login</h3>
+<!--<form action="/seller/login" method="post">-->
+<div class="login-container">
+<form th:action="@{/perform_login}" method="post">
+  <label for="username">Username:</label>
+  <input type="text" id="username" name="username" required>
+  <br>
+  <label for="password">Password:</label>
+  <input type="password" id="password" name="password" required>
+  <br>
+  <button type="submit">Login</button>
+</form>
+<div th:if="${errorMessage}" class="error-message">
+  <p th:text="${errorMessage}">Invalid Credentials</p>
+</div>
+</div>
+</body>
+</html>
