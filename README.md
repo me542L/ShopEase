@@ -1,4 +1,4 @@
-# **ShopEase**
+# **Shopping Platform**
 
 ## Overview
 
