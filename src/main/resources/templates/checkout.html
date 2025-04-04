@@ -89,7 +89,7 @@
         <label for="mobile">Mobile Number</label>
         <input type="text" id="mobile" name="mobile" required>
       </div>
-      <p th:text="'Total Payable Amount: $' + ${totalAmount}" class="total-price"></p>
+      <p th:text="'Total Payable Amount: $' +  ${#numbers.formatDecimal(totalAmount, 1, 2)}" class="total-price"></p>
       <div class="checkout-button">
         <button type="submit">Place Order</button>
       </div>
