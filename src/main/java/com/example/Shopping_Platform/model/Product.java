@@ -15,6 +15,7 @@ public class Product {
     private String description;
     private double price;
     private String imageUrl;
+    private String ratings;
 
     @ManyToOne
     @JoinColumn(name = "seller_id", nullable = false)
@@ -42,18 +43,6 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> cartItems;
 
-
-
-    /*@PrePersist
-    @PreUpdate
-    public void ensureDefaults() {
-        if (this.imageUrl == null) {
-            this.imageUrl = "/path/to/default/image.jpg"; // Set a default image URL
-        }
-    }*/
-
-
-
     public List<CartItem> getCartItems() {
         return cartItems;
     }
@@ -70,7 +59,6 @@ public class Product {
         this.ratings = ratings;
     }
 
-    private String ratings;
     public String getName() {
         return name;
     }
@@ -103,11 +91,11 @@ public class Product {
         this.price = price;
     }
 
-    public String getImageUrl() { // Add this method
+    public String getImageUrl() { 
         return imageUrl;
     }
 
-    public void setImageUrl(String imageUrl) { // Add this method
+    public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 }
