@@ -72,7 +72,7 @@
     <label for="product-description">Description:</label>
     <p id="product-description" th:text="${product.description}">Product Description</p>
     <label for="product-rating">Rating:</label>
-    <p id="product-rating" th:text="${product.ratings} + ' stars'">Product Rating</p>
+    <p id="product-rating" th:text="${product.ratings}">Product Rating</p>
 
     <form id="product-form" th:action="@{/add-to-cart}" method="post">
       <input type="hidden" name="productId" th:value="${product.id}">
