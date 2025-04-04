@@ -49,7 +49,7 @@
     <p>Delivery Address: <span th:text="${address}">123 Main St</span></p>
     <p>Payment Method: <span th:text="${payment}">Credit Card</span></p>
     <p>Mobile Number: <span th:text="${mobile}">123-456-7890</span></p>
-    <p th:text="'Total Payable Amount: $' + ${totalAmount}" class="total-price"></p>
+    <p th:text="'Total Payable Amount: $' + ${#numbers.formatDecimal(totalAmount, 1, 2)}" class="total-price"></p>
   </div>
 </div>
 </body>
