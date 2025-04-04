@@ -25,7 +25,7 @@ public class ShoppingPlatformApplication implements CommandLineRunner {
 	private BCryptPasswordEncoder passwordEncoder;
 	@Override
 	public void run(String... args) throws Exception {
-		// Ensure default seller exists
+		
 		if (sellerService.findByUsername("default_seller") == null) {
 			Seller defaultSeller = new Seller();
 			defaultSeller.setSellerUsername("default_seller");
@@ -34,7 +34,6 @@ public class ShoppingPlatformApplication implements CommandLineRunner {
 			sellerService.saveSeller(defaultSeller);
 		}
 
-		// Update products with null seller
 		productService.updateProductsWithNullSeller();
 	}
 }
