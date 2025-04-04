@@ -28,28 +28,17 @@ public class SellerController {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
-
-
-    @PostMapping("/seller/login")
-    public String sellerLogin(@RequestParam String username, @RequestParam String password, Model model) {
-        Seller seller = sellerService.findByUsername(username);
-        if (seller != null && passwordEncoder.matches(password, seller.getSellerPassword())) {
-            return "redirect:/seller/add-product";
-        } else {
-            model.addAttribute("errorMessage", "Invalid credentials");
-            return "seller-login";
-        }
-    }
-
+    
     @GetMapping("/seller/add-product")
     public String addProductPage(@AuthenticationPrincipal SellerDetails sellerDetails, Model model) {
         model.addAttribute("sellerId", sellerDetails.getSeller().getSellerId());
         return "add-product";
     }
+
     @PostMapping("/logout")
     public String logout() {
         return "redirect:/welcome.html";
-    }
+}
     @PostMapping("/seller/add-product")
     public String addProduct(@AuthenticationPrincipal SellerDetails sellerDetails,
                              @RequestParam String name, @RequestParam double price,
