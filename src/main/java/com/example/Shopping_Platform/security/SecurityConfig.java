@@ -51,6 +51,11 @@ public class SecurityConfig {
                 .failureUrl("/login?error=true")
                 .permitAll()
         )
+            .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/welcome")
+                        .permitAll()
+                )
 
                 .authenticationProvider(userAuthenticationProvider())
                 .authenticationProvider(sellerAuthenticationProvider());
