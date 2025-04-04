@@ -74,9 +74,9 @@ public class ShopController {
     }
 
     @GetMapping("/checkout")
-    public String checkout(Model model,  @AuthenticationPrincipal User user) {
-        List<CartItem> cartItems = productService.getCartItems(user);
-        double totalAmount = productService.getTotalAmount(user);
+    public String checkout(Model model,  @AuthenticationPrincipal UserDetails userDetails) {
+        List<CartItem> cartItems = productService.getCartItems(userDetails);
+        double totalAmount = productService.getTotalAmount(userDetails);
 
         model.addAttribute("cartItems", cartItems);
         model.addAttribute("totalAmount", totalAmount);
@@ -136,10 +136,10 @@ public class ShopController {
     public String placeOrder(@RequestParam("address") String address,
                              @RequestParam("payment") String payment,
                              @RequestParam("mobile") String mobile,
-                             @AuthenticationPrincipal User user,
+                             @AuthenticationPrincipal UserDetails userDetails,
                              Model model) {
-        List<CartItem> cartItems = productService.getCartItems(user);
-        double totalAmount = productService.getTotalAmount(user);
+        List<CartItem> cartItems = productService.getCartItems(userDetails);
+        double totalAmount = productService.getTotalAmount(userDetails);
 
         model.addAttribute("cartItems", cartItems);
         model.addAttribute("totalAmount", totalAmount);
