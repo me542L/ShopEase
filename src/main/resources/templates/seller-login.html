@@ -58,10 +58,12 @@
 </head>
 <body>
 <h1 class="title">ShopEase</h1>
-<h3 class="seller">Seller Login</h3>
-<!--<form action="/seller/login" method="post">-->
+
 <div class="login-container">
+  <h1>Login</h1>
 <form th:action="@{/perform_login}" method="post">
+  <input type="hidden" name="loginType" value="SELLER">
+
   <label for="username">Username:</label>
   <input type="text" id="username" name="username" required>
   <br>
@@ -70,9 +72,8 @@
   <br>
   <button type="submit">Login</button>
 </form>
-<div th:if="${errorMessage}" class="error-message">
-  <p th:text="${errorMessage}">Invalid Credentials</p>
-</div>
+  <div th:if="${param.error}" style="color: red;">Invalid username or password</div>
+
 </div>
 </body>
 </html>
