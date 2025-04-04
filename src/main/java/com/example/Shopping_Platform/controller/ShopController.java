@@ -97,8 +97,8 @@ public class ShopController {
             return "redirect:/login"; // Or an appropriate error page
         }
 
-        List<CartItem> cartItems = productService.getCartItems(user);
-        double totalAmount = productService.getTotalAmount(user);
+        List<CartItem> cartItems = productService.getCartItems(userDetails);
+        double totalAmount = productService.getTotalAmount(userDetails);
 
         // Debug statements to check data
         cartItems.forEach(cartItem -> {
