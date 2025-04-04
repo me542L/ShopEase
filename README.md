@@ -2,7 +2,8 @@
 
 ## Overview
 
-This is a web-based Online Shopping Platform built using Spring Boot, PostgreSQL, and Thymeleaf. The application allows users to browse products, add them to the cart, proceed to checkout, and securely complete orders. Also users can directly buy products. User authentication is implemented using Spring Security.
+This is a web-based Online Shopping Platform built using Java, Springboot, HTML, CSS, Thymeleaf and PostgreSQL. The application allows users to browse products, 
+add them to the cart, proceed to checkout, and securely complete orders. Also users can directly buy products. User authentication is implemented using Spring Security. It also has a seller end where sellers can list their products.
 
 ## Features
 
@@ -30,6 +31,13 @@ This is a web-based Online Shopping Platform built using Spring Boot, PostgreSQL
 
 - "Buy Now" option for instant purchases.
 
+#### Seller Window
+
+- Sellers can list their products i.e. can provide images, description, price and other details to make them available to buyers.
+  
+- Seller Authentication is ensured using login through Spring Security.
+  
+
 ## Tech Stack
 **Backend**:    Java, Spring Boot
 
@@ -44,6 +52,18 @@ This is a web-based Online Shopping Platform built using Spring Boot, PostgreSQL
 **Build Tool**: Maven
 
 **IDE**:  IntelliJ IDEA
+
+## Libraries Used
+
+-  Spring Boot Starter Web 
+-  Spring Boot Starter Thymeleaf 
+- Spring Boot Data JPA  
+- Spring Boot Starter Security 
+- Spring Security Config 
+- Spring Security Crypto 
+- PostgreSQL JDBC Driver 
+- Jakarta Persistence API 
+- Thymeleaf
 
 ## Project Structure
 
@@ -93,20 +113,12 @@ src/main/java/com/example/Shopping_Platform/
 
  #### 1. Clone the Repository:
 
-git clone https://github.com/your-repo/shopping-platform.git
-
-cd shopping-platform
+git clone https://github.com/me542L/Shopping_Platform.git
 
 #### 2. Configure the Database:
 - Ensure the required tables i.e. products, users, cart_item are present in the database.
-
-#### 3. Update application.properties with your PostgreSQL credentials.
-
-#### 4. Build & Run the Application:
-
-mvn clean install
-
-mvn spring-boot:run
+  
+- Update application.properties with your PostgreSQL credentials.
 
 #### 5. Access the Application:
 
