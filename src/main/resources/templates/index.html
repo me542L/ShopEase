@@ -26,34 +26,46 @@
             font-weight: bold;
         }
         .search-container {
-            flex: 1;
             display: flex;
             justify-content: center;
+            width: 100%;
+        }
+
+        .search-container form {
+            display: flex;
+            width: 80%;
+            max-width: 700px;
         }
 
         .search-bar {
-            width: 60%;
-            max-width: 500px;
+            flex: 1;
             padding: 10px;
-            border-radius: 5px;
+            border-radius: 5px 0 0 5px;
             border: none;
-        }
-        .se-button {
-            padding: 10px;
-            font-size: 16px;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
+            margin-right: 5px;;
         }
 
-        .return-button {
-            font-size: 28px;
-            margin-right: 5px;
-            background-color: peru;
-            color: white;
-            border-color: peru;
+        .se-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: grey;
+            border: none;
+            border-radius: 0 5px 5px 0;
             cursor: pointer;
+            white-space: nowrap;
+        }
+        .cart {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            justify-content: space-between;
+            min-width: 200px;
+            flex: 0 0 220px;
+        }
+        .logout , .cart-icon {
+            flex: 1;
+            font-size: 16px;
+            text-align: center;
         }
         .cart-icon {
             font-size: 28px;
@@ -102,36 +114,51 @@
             margin-top: 10px;
             font-weight: bold;
         }
-       .button-container {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    gap: 10px;
-}
+        .button-container {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .logout {
+            background-color: red;
+            color: white;
+            border: none;
+            padding-right: 19px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left:19px;;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
 
-.button-container form {
-    flex: 1;
-    display: flex;
-}
+        .logout:hover {
+            background-color: darkred;
+        }
+        .button-container form {
+            flex: 1;
+            display: flex;
+        }
 
-.submit-button, .buyNow-button {
-    flex: 1;
-    text-align: center;
-    color: black;
-    background-color: rgb(245, 190, 0);
-    font-weight: 500;
-    padding: 10px;
-    border-radius: 35px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    font-size:13px;
-    font-weight:bold;
-}
+        .submit-button, .buyNow-button {
+            flex: 1;
+            text-align: center;
+            color: black;
+            background-color: rgb(245, 190, 0);
+            font-weight: 500;
+            padding: 10px;
+            border-radius: 35px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            font-size:13px;
+            font-weight:bold;
+        }
 
-.submit-button:hover, .buyNow-button:hover {
-    background-color: rgb(255, 200, 0);
-}
+        .submit-button:hover, .buyNow-button:hover {
+            background-color: rgb(255, 200, 0);
+        }
 
 
     </style>
@@ -146,11 +173,12 @@
         </form>
     </div>
     <div class="cart">
-        <button class="return-button"><span style="font-size: 650;">Returns</span>
-            <span style="font-size: 700;">& Orders</span>
-        </button>
+        <form action="/logout" method="post" style="flex: 1;">
+            <button type="submit" class="logout">Logout</button>
+        </form>
         <button class="cart-icon" onclick="window.location.href='/cart'">🛒Cart</button>
     </div>
+    
 </header>
 
 <div class="product-container">
@@ -177,3 +205,4 @@
 </div>
 </body>
 </html>
+    

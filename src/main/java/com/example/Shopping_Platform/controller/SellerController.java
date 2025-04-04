@@ -41,36 +41,15 @@ public class SellerController {
         }
     }
 
-    /*@GetMapping("/seller/add-product")
-    public String addProductPage() {
-
-        return "add-product";
-    }*/
-
     @GetMapping("/seller/add-product")
     public String addProductPage(@AuthenticationPrincipal SellerDetails sellerDetails, Model model) {
         model.addAttribute("sellerId", sellerDetails.getSeller().getSellerId());
         return "add-product";
     }
-
-    /*@PostMapping("/seller/add-product")
-    public String addProduct(@RequestParam String name, @RequestParam double price, @RequestParam String description,
-                             @RequestParam String imageUrl, @RequestParam Long sellerId) {
-        Seller seller = sellerService.findById(sellerId).orElse(null);
-        if (seller != null) {
-            Product product = new Product();
-            product.setName(name);
-            product.setPrice(price);
-            product.setDescription(description);
-            product.setImageUrl(imageUrl);
-            product.setSeller(seller);
-            product.setRatings("No ratings yet");
-
-            productService.saveProduct(product);
-            return "redirect:/seller/add-product?success=true";
-        } else {
-            return "redirect:/seller/add-product?error=true";
-        }*/
+    @PostMapping("/logout")
+    public String logout() {
+        return "redirect:/welcome.html";
+    }
     @PostMapping("/seller/add-product")
     public String addProduct(@AuthenticationPrincipal SellerDetails sellerDetails,
                              @RequestParam String name, @RequestParam double price,
