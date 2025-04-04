@@ -12,7 +12,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
+import org.springframework.security.core.userdetails.UserDetails;
 import com.example.Shopping_Platform.repository.SellerRepository;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -36,12 +36,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // Disable CSRF for simplicity, enable in production
+                .csrf(csrf -> csrf.disable()) 
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/", "/welcome", "/user/login", "/seller/login", "/css/**", "/js/**").permitAll()
-                        .requestMatchers("/seller/**").hasRole("SELLER") // Restrict seller-related URLs to authenticated sellers
-                        .requestMatchers("/user/**").hasRole("USER") // Restrict user-related URLs to authenticated users
-                        .anyRequest().authenticated() // Any other request must be authenticated
+                        .requestMatchers("/seller/**").hasRole("SELLER") 
+                        .requestMatchers("/user/**").hasRole("USER")
+                        .anyRequest().authenticated() 
                 )
                 .formLogin(form -> form
                         .loginPage("/user/login")
