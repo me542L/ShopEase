@@ -29,7 +29,7 @@ public class ShopController {
     }
     @GetMapping("/welcome")
     public String welcomePage() {
-        return "welcome"; // Ensure welcome.html exists in templates
+        return "welcome"; 
     }
 
 
@@ -56,13 +56,13 @@ public class ShopController {
         List<Product> products;
 
         if (keyword == null || keyword.trim().isEmpty()) {
-            products = new ArrayList<>(); // Empty list to prevent errors
+            products = new ArrayList<>(); 
         } else {
             products = productService.searchProducts(keyword);
         }
 
         model.addAttribute("products", products);
-        return "search"; // Make sure search.html exists!
+        return "search"; 
     }
 
     @PostMapping("/buy-now")
@@ -82,25 +82,24 @@ public class ShopController {
         model.addAttribute("totalAmount", totalAmount);
         return "checkout";
     }
+    
     @Autowired
     private UserService userService;
 
     @GetMapping("/cart")
     public String cart(Model model, @AuthenticationPrincipal UserDetails userDetails) {
         if (userDetails == null) {
-            return "redirect:/login"; // Or an appropriate error page
+            return "redirect:/login"; 
         }
 
-        // Retrieve user from database
         User user = userService.findByUsername(userDetails.getUsername());
         if (user == null) {
-            return "redirect:/login"; // Or an appropriate error page
+            return "redirect:/login"; 
         }
 
         List<CartItem> cartItems = productService.getCartItems(userDetails);
         double totalAmount = productService.getTotalAmount(userDetails);
 
-        // Debug statements to check data
         cartItems.forEach(cartItem -> {
             System.out.println("Product ID: " + cartItem.getProduct().getId());
             System.out.println("Product Name: " + cartItem.getProduct().getName());
