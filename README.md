@@ -3,7 +3,7 @@
 ## Overview
 
 This is a web-based Online Shopping Platform built using Java, Springboot, HTML, CSS, Thymeleaf and PostgreSQL. The application allows users to browse products, 
-add them to the cart, proceed to checkout, and securely complete orders. Also users can directly buy products. User authentication is implemented using Spring Security. It also has a seller end where sellers can list their products.
+add them to the cart, proceed to checkout, and securely complete orders. Also users can directly buy products. User authentication is implemented using Spring Security. It also has a seller end through which sellers can add their products.
 
 ## Features
 
@@ -64,48 +64,6 @@ add them to the cart, proceed to checkout, and securely complete orders. Also us
 - PostgreSQL JDBC Driver 
 - Jakarta Persistence API 
 - Thymeleaf
-
-## Project Structure
-
-src/main/java/com/example/Shopping_Platform/
-│── controller/  
-│   ├── LoginController.java  
-│   ├── ShopController.java  
-│  
-│── model/  
-│   ├── Product.java  
-│   ├── User.java  
-│   ├── CartItem.java  
-│  
-│── repository/  
-│   ├── ProductRepository.java  
-│   ├── UserRepository.java  
-│   ├── CartItemRepository.java  
-│  
-│── service/  
-│   ├── ProductService.java  
-│   ├── CustomUserDetailsService.java  
-│  
-│── security/  
-│   ├── SecurityConfig.java  
-│  
-│── util/  
-│   ├── BCryptPasswordGenerator.java  
-│  
-│── ShoppingPlatformApplication.java  
-│  
-│── resources/templates/  
-│   ├── index.html  
-│   ├── product.html  
-│   ├── cart.html  
-│   ├── checkout.html  
-│   ├── login.html  
-│   ├── search.html  
-│   ├── buy-now.html  
-│   ├── order-confirmation.html  
-│   ├── order-confirmation-single-product.html  
-│   ├── checkout-single-product.html  
-│── application.properties (Database & Security Config)
 
 ## Setup Instructions
 
