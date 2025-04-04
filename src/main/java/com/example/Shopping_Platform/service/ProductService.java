@@ -7,15 +7,10 @@ import com.example.Shopping_Platform.repository.CartItemRepository;
 import com.example.Shopping_Platform.repository.SellerRepository;
 import com.example.Shopping_Platform.repository.UserRepository;
 import com.example.Shopping_Platform.repository.ProductRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import org.hibernate.StaleObjectStateException;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
-
-
-
 import java.util.ConcurrentModificationException;
 import java.util.List;
 
@@ -24,45 +19,35 @@ import java.util.List;
 public class ProductService {
     @Autowired
     private ProductRepository productRepository;
+    
     @Autowired
     private CartItemRepository cartItemRepository;
-
-
-
-
-   @Autowired
-   private UserRepository userRepository;
-
-
+    
+    @Autowired
+    private UserService userService;
+    
+    @Autowired
+    private UserRepository userRepository;
+    
     @Autowired
     private SellerRepository sellerRepository;
 
-    public List<CartItem> getCartItems(User user) {
-        return cartItemRepository.findByUser(user);
+    public List<CartItem> getCartItems(UserDetails userDetails) {
+         User user = userService.findByUsername(userDetails.getUsername());
+         return cartItemRepository.findByUser(user);
     }
 
-    public double getTotalAmount(User user) {
-        List<CartItem> cartItems = getCartItems(user);
+    public double getTotalAmount(UserDetails userDetails) {
+        List<CartItem> cartItems = getCartItems(userDetails);
         return cartItems.stream()
                 .mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity())
                 .sum();
     }
 
-    /*public void addToCart(Long productId, int quantity, User user) {
-        Product product = productRepository.findById(productId).orElseThrow(() -> new IllegalArgumentException("Invalid product ID"));
-        CartItem cartItem = new CartItem(product, quantity,user);
-
-        cartItemRepository.save(cartItem);
-    }*/
-
     public void addToCart(Long productId, int quantity, User user) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid product ID"));
-
-        // Create a new CartItem
         CartItem cartItem = new CartItem(product, quantity, user);
-
-        // Save the CartItem
         cartItemRepository.save(cartItem);
     }
 
@@ -79,7 +64,6 @@ public class ProductService {
                 product.setSeller(defaultSeller);
                 productRepository.save(product);
             } catch (ObjectOptimisticLockingFailureException | StaleObjectStateException e) {
-                // Log the exception and throw a custom exception or handle as needed
                 System.out.println("Optimistic locking failure for product ID: " + product.getId());
                 throw new ConcurrentModificationException("The product was modified by another user.");
             }
