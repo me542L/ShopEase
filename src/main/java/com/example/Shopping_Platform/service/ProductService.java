@@ -1,4 +1,5 @@
 package com.example.Shopping_Platform.service;
+
 import com.example.Shopping_Platform.model.CartItem;
 import com.example.Shopping_Platform.model.Product;
 import com.example.Shopping_Platform.model.Seller;
@@ -58,7 +59,7 @@ public class ProductService {
 
         for (Product product : products) {
             if (product.getVersion() == null) {
-                product.setVersion(0L); // Initialize version to 0 if null
+                product.setVersion(0L);
             }
 
             try {
