@@ -29,7 +29,9 @@
       background-color: red;
       color: white;
       border: none;
-      padding: 10px 15px;
+      padding: 10px 15px ;
+      padding-top: 0px;;
+      padding-bottom: 6px;;
       font-size: 16px;
       cursor: pointer;
       border-radius: 5px;
@@ -38,14 +40,13 @@
     .logout:hover {
         background-color: darkred;
     }
-    form {
-      background: #fff;
+    .all {
+      background: white;
       padding: 30px;
       border-radius: 8px;
       box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
       width: 1285px;
     }
-
     label {
       font-weight: bold;
       display: block;
@@ -92,11 +93,11 @@
 <body>
 <header>
   <h1 class="title">Add Your Products</h1>
-  <form action="/logout" method="post">
+  <form action="/logout" method="post" class="logout">
     <button type="submit" class="logout">Logout</button>
   </form>
 </header>
-<form action="/seller/add-product" method="post">
+<form action="/seller/add-product" method="post" class="all">
   <label for="name">Product Name:</label>
   <input type="text" id="name" name="name" required>
   <br>
