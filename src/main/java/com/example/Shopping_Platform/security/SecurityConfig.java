@@ -1,5 +1,6 @@
 package com.example.Shopping_Platform.security;
 
+import com.example.Shopping_Platform.repository.UserRepository;
 import com.example.Shopping_Platform.service.CustomUserDetailsService;
 import com.example.Shopping_Platform.service.CustomSellerDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +13,19 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.example.Shopping_Platform.repository.SellerRepository;
 import org.springframework.security.web.SecurityFilterChain;
 
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    @Autowired
+    private SellerRepository sellerRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
@@ -36,7 +44,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated() // Any other request must be authenticated
                 )
                 .formLogin(form -> form
-                .loginPage("/login")
+                        .loginPage("/user/login")
                 .loginProcessingUrl("/perform_login")
                 .successHandler((request, response, authentication) -> {
                     System.out.println("User Authorities: " + authentication.getAuthorities());
@@ -48,15 +56,22 @@ public class SecurityConfig {
                         response.sendRedirect("/products");
                     }
                 })
-                .failureUrl("/login?error=true")
-                .permitAll()
+                        .failureHandler((request, response, exception) -> {
+                            String loginType = request.getParameter("loginType");
+                            if ("SELLER".equals(loginType)) {
+                                response.sendRedirect("/seller/login?error=true");
+                            } else {
+                                response.sendRedirect("/user/login?error=true");
+                            }
+                        })
+
+                        .permitAll()
         )
-            .logout(logout -> logout
+                .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/welcome")
                         .permitAll()
                 )
-
                 .authenticationProvider(userAuthenticationProvider())
                 .authenticationProvider(sellerAuthenticationProvider());
         return http.build();
