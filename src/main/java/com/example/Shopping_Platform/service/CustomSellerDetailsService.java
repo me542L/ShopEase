@@ -20,10 +20,17 @@ public class CustomSellerDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Seller seller = sellerRepository.findByUsername(username);
-        if (seller == null) {
+        Optional<Seller> optionalSeller = sellerRepository.findByUsername(username);
+        if (optionalSeller.isEmpty()) {
             throw new UsernameNotFoundException("Seller not found");
         }
+        Seller seller = optionalSeller.get();
+
+        String role = seller.getRole();
+        if (role == null || role.trim().isEmpty()) {
+            role = "ROLE_SELLER"; // Assign a default role if none is set
+        }
+
         return new SellerDetails(seller);
     }
 }
