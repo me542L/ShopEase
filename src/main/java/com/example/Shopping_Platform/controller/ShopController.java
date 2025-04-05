@@ -91,9 +91,9 @@ public class ShopController {
         if (userDetails == null) {
             return "redirect:/login"; 
         }
-
-        User user = userService.findByUsername(userDetails.getUsername());
-        if (user == null) {
+        Optional<User> user = userService.findByUsername(userDetails.getUsername());
+        
+        if (user.isEmpty()) {
             return "redirect:/login"; 
         }
 
@@ -119,13 +119,14 @@ public class ShopController {
         if (userDetails == null) {
             return "redirect:/login";
         }
-        User user = userService.findByUsername(userDetails.getUsername());
+        Optional<User> user = userService.findByUsername(userDetails.getUsername());
+        
 
-        if (user == null) {
+        if (user.isEmpty()) {
             return "redirect:/login";
         }
 
-        productService.addToCart(productId, quantity, user);
+        productService.addToCart(productId, quantity,user.orElse(null));
 
         return "redirect:/cart";
     }
