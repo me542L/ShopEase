@@ -14,9 +14,9 @@ public class SellerService {
     @Autowired
     private SellerRepository sellerRepository;
 
-    public Seller findByUsername(String username) {
+    public Optional<Seller> findByUsername(String username) {
         return sellerRepository.findByUsername(username);
-    }
+    } 
 
 
     public Optional<Seller> findById(Long id) {
