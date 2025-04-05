@@ -30,21 +30,29 @@ public class RegistrationController {
         return "register";
     }
 
-    @PostMapping("/register")
+   @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") User user, Model model) {
-               
+        // Check if username already exists in users or sellers table
+        boolean userExists = userService.findByUsername(user.getUsername()).isPresent();
+        boolean sellerExists = sellerService.findByUsername(user.getUsername()).isPresent();
+
+        if (userExists || sellerExists) {
+            model.addAttribute("error", "Username not available.");
+            return "register";
+        }
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        
+
         if ("ROLE_SELLER".equals(user.getRole())) {
             Seller seller = new Seller();
             seller.setSellerUsername(user.getUsername());
             seller.setSellerPassword(user.getPassword());
             seller.setRole("ROLE_SELLER");
             sellerService.saveSeller(seller);
-            return "redirect:/seller/login"; 
+            return "redirect:/seller/login";
         } else {
             user.setRole("ROLE_USER");
-            userService.save(user);
+            userService.save(user); 
             return "redirect:/user/login";
         }
     }
