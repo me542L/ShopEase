@@ -73,6 +73,9 @@
     <div>
       <button type="submit">Register</button>
     </div>
+       <div th:if="${error}" style="color: red;">
+      <p th:text="${error}"></p>
+    </div>
   </form>
 </div>
 </body>
