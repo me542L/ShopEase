@@ -30,38 +30,22 @@ public class RegistrationController {
         return "register";
     }
 
-    /*@PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") User user, Model model) {
-        // Hash the password
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userService.save(user);
-        return "redirect:/user/login";
-    }
-     */
-    /*@PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") User user, Model model) {
-        // Hash the password
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        // Save the user with the selected role
-        userService.save(user);
-        return "redirect:/user/login";
-    }*/
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") User user, Model model) {
-        // Hash the password
+               
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        // Check the role and save to the appropriate table
+        
         if ("ROLE_SELLER".equals(user.getRole())) {
             Seller seller = new Seller();
             seller.setSellerUsername(user.getUsername());
             seller.setSellerPassword(user.getPassword());
             seller.setRole("ROLE_SELLER");
             sellerService.saveSeller(seller);
-            return "redirect:/seller/login"; // Redirect sellers to the seller login page
+            return "redirect:/seller/login"; 
         } else {
             user.setRole("ROLE_USER");
             userService.save(user);
-            return "redirect:/user/login"; // Redirect users to the user login page
+            return "redirect:/user/login";
         }
     }
 }
