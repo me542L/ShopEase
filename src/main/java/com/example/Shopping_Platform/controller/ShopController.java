@@ -62,6 +62,9 @@ public class ShopController {
         }
 
         model.addAttribute("products", products);
+        if (products.isEmpty()) {
+            model.addAttribute("notFound", true);
+        }
         return "search"; 
     }
 
