@@ -37,6 +37,28 @@
         margin-top: 20px;
         color: black;
     }
+    .back {
+        padding: 8px 16px;
+        padding-left: 25px;
+        padding-right: 25px;
+        margin-top: 9px;
+        font-size: 16px;
+        background-color:peru; /* Teal shade that looks good with peru */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    .back:hover {
+        background-color:  rgb(205, 106, 7);
+    }
+    .back-btn-container {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 10px;
+    }
   </style>
 </head>
 <body>
@@ -50,6 +72,9 @@
     <p>Payment Method: <span th:text="${payment}">Credit Card</span></p>
     <p>Mobile Number: <span th:text="${mobile}">123-456-7890</span></p>
     <p th:text="'Total Payable Amount: $' + ${#numbers.formatDecimal(totalAmount, 1, 2)}" class="total-price"></p>
+  </div>
+   <div class="back-btn-container">
+    <button class="back" onclick="window.location.href='/products'">Back</button>
   </div>
 </div>
 </body>
