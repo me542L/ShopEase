@@ -32,7 +32,7 @@ public class RegistrationController {
 
    @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") User user, Model model) {
-        // Check if username already exists in users or sellers table
+        
         boolean userExists = userService.findByUsername(user.getUsername()).isPresent();
         boolean sellerExists = sellerService.findByUsername(user.getUsername()).isPresent();
 
