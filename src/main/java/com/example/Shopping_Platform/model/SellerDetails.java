@@ -20,9 +20,13 @@ public class SellerDetails implements UserDetails{
         return seller;
     }
 
-    @Override
+   @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(seller.getRole()));
+        String role = seller.getRole();
+        if (role == null || role.trim().isEmpty()) {
+            role = "ROLE_SELLER"; // Assign a default role if none is set
+        }
+        return Collections.singleton(new SimpleGrantedAuthority(role));
     }
 
     @Override
