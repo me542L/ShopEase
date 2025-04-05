@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
+import java.util.Optional;
 import java.util.Collections;
 
 @Service
@@ -27,7 +27,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         String role = user.getRole();
         if (role == null || role.trim().isEmpty()) {
-            role = "ROLE_USER"; // Assign a default role if none is set
+            role = "ROLE_USER"; 
         }
 
         return new org.springframework.security.core.userdetails.User(
