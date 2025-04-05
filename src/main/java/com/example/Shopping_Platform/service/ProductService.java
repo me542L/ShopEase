@@ -35,8 +35,8 @@ public class ProductService {
     private SellerRepository sellerRepository;
 
     public List<CartItem> getCartItems(UserDetails userDetails) {
-         User user = userService.findByUsername(userDetails.getUsername());
-         return cartItemRepository.findByUser(user);
+         Optional<User> user = userService.findByUsername(userDetails.getUsername());
+         return cartItemRepository.findByUser(user.orElse(null));
     }
 
     public double getTotalAmount(UserDetails userDetails) {
@@ -53,17 +53,17 @@ public class ProductService {
         cartItemRepository.save(cartItem);
     }
 
-    public void updateProductsWithNullSeller() {
+     public void updateProductsWithNullSeller() {
         List<Product> products = productRepository.findBySellerIsNull();
-        Seller defaultSeller = sellerRepository.findByUsername("default_seller");
+        Optional<Seller> defaultSeller = sellerRepository.findByUsername("default_seller");
 
         for (Product product : products) {
             if (product.getVersion() == null) {
-                product.setVersion(0L);
+                product.setVersion(0L); // Initialize version to 0 if null
             }
 
             try {
-                product.setSeller(defaultSeller);
+                product.setSeller(defaultSeller.orElse(null));
                 productRepository.save(product);
             } catch (ObjectOptimisticLockingFailureException | StaleObjectStateException e) {
                 System.out.println("Optimistic locking failure for product ID: " + product.getId());
