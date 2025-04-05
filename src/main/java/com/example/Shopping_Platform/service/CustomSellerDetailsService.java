@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
+import java.util.Optional;
 import java.util.Collections;
 
 @Service
@@ -28,7 +28,7 @@ public class CustomSellerDetailsService implements UserDetailsService {
 
         String role = seller.getRole();
         if (role == null || role.trim().isEmpty()) {
-            role = "ROLE_SELLER"; // Assign a default role if none is set
+            role = "ROLE_SELLER"; 
         }
 
         return new SellerDetails(seller);
