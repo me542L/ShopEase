@@ -17,17 +17,23 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
-    @Override
+     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
+        Optional<User> optionalUser = userRepository.findByUsername(username);
+        if (optionalUser.isEmpty()) {
             throw new UsernameNotFoundException("User not found");
+        }
+        User user = optionalUser.get();
+
+        String role = user.getRole();
+        if (role == null || role.trim().isEmpty()) {
+            role = "ROLE_USER"; // Assign a default role if none is set
         }
 
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),
-                Collections.singletonList(new SimpleGrantedAuthority(user.getRole()))
+                Collections.singletonList(new SimpleGrantedAuthority(role))
         );
     }
 }
